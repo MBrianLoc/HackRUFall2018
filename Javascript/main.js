@@ -1,16 +1,14 @@
-var game = new Phaser.game(640, 360, Phaser.AUTO);
-
-var GameState = {
-    preload: function(){
-
+var config = {
+    type:Phaser.AUTO,
+    width:800,
+    height:600,
+    physics: {
+        default:'arcade',
+        arcade: {
+            gravity: {y : 200}
+        }
     },
-    create: function(){
-
-    },
-    update: function(){
-
-    }
+    scene: [example1, example2]
 };
 
-game.state.add('GameState', GameState);
-game.state.start('GameState');
+var game = new Phaser.Game(config);
