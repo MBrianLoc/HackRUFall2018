@@ -38,6 +38,10 @@ class example1 extends Phaser.Scene {
             {
                 this.scene.start("example2");
             }
+            if(e.key == "3")
+            {
+                this.scene.start("example3");
+            }
         }, this)
     }
 

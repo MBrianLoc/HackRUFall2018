@@ -22,6 +22,17 @@ class example2 extends Phaser.Scene{
                 tgt[0].setColor("Red");
             }
         }, this);
+
+        this.key_1 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
+
+    }
+
+    update(delta)
+    {
+        if(this.key_1.isDown)
+        {
+            this.scene.start("example1");
+        }
     }
 
 
