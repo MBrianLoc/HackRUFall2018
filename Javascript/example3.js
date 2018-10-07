@@ -13,7 +13,6 @@ class example3 extends Phaser.Scene{
     {
         this.soundFX = this.sound.add("test", { loop: "true"});
         this.soundFX.play();
-        this.soundFX.rate = 0.5;
 
         this.input.keyboard.on("keydown_L", function(e)
         {
