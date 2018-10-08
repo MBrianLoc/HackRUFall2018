@@ -17,10 +17,20 @@ class example1 extends Phaser.Scene {
 
     create()
     {
+
         var scene = this;
         this.image = this.add.image(300,400,'astroid');
-        var enemy = this.add.sprite(20,40,'enemy');
+        var enemy = this.physics.add.group({
+            key: 'bullet',
+            repeat: 11,
+            setXY: { x: 1500, y: 0, stepY: 70 },
+        });
+        enemy.children.iterate(function (child) {
 
+          child.setVelocityX(-20);
+
+        });
+        var bullets = this.physics.add.group();
         this.key_W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.key_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.key_S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
@@ -30,13 +40,14 @@ class example1 extends Phaser.Scene {
 
         this.input.on('pointerdown', function(event)
         {
-          var bullet = this.physics.add.image(this.image.x, this.image.y, "bullet");
+          var bullet = bullets.create(this.image.x, this.image.y, "bullet");
           var xVel = (event.x-scene.image.x);
           var yVel = (event.y-scene.image.y);
           var speed = Math.sqrt(Math.pow(xVel,2) + Math.pow(yVel,2));
           bullet.setVelocity(xVel,yVel);
           this.soundFX.play();
         }, this);
+
 
         this.input.keyboard.on('keyup', function(e)
         {
@@ -48,6 +59,8 @@ class example1 extends Phaser.Scene {
                 this.scene.start("example3");
             }
         }, this)
+        this.physics.add.collider(bullets, enemy);
+        this.physics.add.collider(enemy, enemy);
     }
 
     update(delta)
