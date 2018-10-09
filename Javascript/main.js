@@ -7,7 +7,7 @@ var config = {
         arcade: {
         }
     },
-    scene: [menu, game]
+    scene: [mainGame]
 };
 
 var game = new Phaser.Game(config);
