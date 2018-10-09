@@ -1,6 +1,6 @@
 var config = {
     type:Phaser.AUTO,
-    width:800,
+    width:4000,
     height:800,
     physics: {
         default:'arcade',
@@ -14,6 +14,7 @@ var game = new Phaser.Game(config);
 var player;
 var enemies;
 var spawnTimer;
+var gunType
 function enemyHit (bullet, enemies)
 {
     enemies.disableBody(true, true);
@@ -61,4 +62,9 @@ function spawnAsteroid()
     ast.setVelocity(xVel,yVel);
     ast.setDisplaySize(80, 80);
     spawnTimer.reset({delay: 300, callback: spawnAsteroid, callbackScope: this, repeat: 1});
+}
+
+function changeGun(type)
+{
+
 }
