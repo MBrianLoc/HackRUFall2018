@@ -30,10 +30,10 @@ class example1 extends Phaser.Scene {
         player = this.physics.add.sprite(700,400,'ship');
         enemies = this.physics.add.group();
         /*enemies.children.iterate(function (child) {
-dsa
+        
           child.setVelocityX(Phaser.Math.RND.integerInRange(-20,-500));
           child.setDisplaySize(80, 80);
-aw
+
         });*/
         var bullets = this.physics.add.group();
         this.key_W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
