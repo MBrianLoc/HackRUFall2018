@@ -7,19 +7,23 @@ var config = {
         arcade: {
         }
     },
-    scene: [example1, example2, example3]
+    scene: [menu, game]
 };
 
 var game = new Phaser.Game(config);
 var player;
 var enemies;
 var spawnTimer;
-var gunType
+var gunType;
+var gunText;
 function enemyHit (bullet, enemies)
 {
-    enemies.disableBody(true, true);
+    if(enemies.name == gunType)
+    {
+        enemies.disableBody(true, true);
+        this.sound.play('explosion');
+    }
     bullet.disableBody(true,true);
-    this.sound.play('ow');
 }
 function playerHit (player, enemies)
 {
@@ -58,7 +62,33 @@ function spawnAsteroid()
         yVel = Phaser.Math.RND.integerInRange(-300,300);
         xVel = Phaser.Math.RND.integerInRange(-500,-20);
     }
-    var ast = enemies.create(x, y, 'asteroid');
+
+    var astType = Phaser.Math.RND.integerInRange(1,4);
+
+    if(astType == 1)
+    {
+        var ast = enemies.create(x, y, 'string');
+        ast.name = "string";
+        gunText.setText(gunType);
+    }
+    else if(astType == 2)
+    {
+        var ast = enemies.create(x, y, 'char');
+        ast.name = "char";
+        gunText.setText(gunType);
+    }
+    else if(astType == 3)
+    {
+        var ast = enemies.create(x, y, 'int');
+        ast.name = "int";
+        gunText.setText(gunType);
+    }
+    else
+    {
+        var ast = enemies.create(x, y, 'float');
+        ast.name = "float";
+        gunText.setText(gunType);
+    }
     ast.setVelocity(xVel,yVel);
     ast.setDisplaySize(80, 80);
     spawnTimer.reset({delay: 300, callback: spawnAsteroid, callbackScope: this, repeat: 1});
@@ -66,5 +96,5 @@ function spawnAsteroid()
 
 function changeGun(type)
 {
-
+    gunType = type;
 }

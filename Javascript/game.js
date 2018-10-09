@@ -1,7 +1,7 @@
-class example1 extends Phaser.Scene {
+class game extends Phaser.Scene {
     constructor()
     {
-        super({key:"example1"});
+        super({key:"game"});
     }
 
     preload()
@@ -12,9 +12,13 @@ class example1 extends Phaser.Scene {
         this.load.image('bullet', 'Assets/bullet.png');
         this.load.audio('pew', 'Assets/pew.mp3');
         this.load.audio('ow', 'Assets/ow.mp3');
+        this.load.audio('explosion', 'Assets/explosion.mp3');
         this.load.image('ship', 'Assets/ship.png');
         this.load.image('background', 'Assets/background.jpg');
-
+        this.load.image('int', 'Assets/int.png');
+        this.load.image('char', 'Assets/char.png');
+        this.load.image('string', 'Assets/string.png');
+        this.load.image('float', 'Assets/float.png');
     }
 
     create()
@@ -30,11 +34,13 @@ class example1 extends Phaser.Scene {
         player = this.physics.add.sprite(700,400,'ship');
         enemies = this.physics.add.group();
         /*enemies.children.iterate(function (child) {
-        
+
           child.setVelocityX(Phaser.Math.RND.integerInRange(-20,-500));
           child.setDisplaySize(80, 80);
 
         });*/
+        gunType = "char";
+        gunText = this.add.text(0, 0, gunType);
         var bullets = this.physics.add.group();
         this.key_W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.key_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -56,22 +62,29 @@ class example1 extends Phaser.Scene {
 
         this.input.keyboard.on('keyup_ONE', function (e)
         {
-                changeGun(1);
+                changeGun("char");
         }, this);
 
         this.input.keyboard.on('keyup_TWO', function (e)
         {
-                changeGun(2);
+                changeGun("string");
         }, this);
 
         this.input.keyboard.on('keyup_THREE', function (e)
         {
-                changeGun(3);
+                changeGun("int");
         }, this);
 
-        this.physics.add.collider(bullets, enemies, enemyHit, null, this);
-        this.physics.add.overlap(player, enemies, playerHit, null, this);
+        this.input.keyboard.on('keyup_FOUR', function (e)
+        {
+                changeGun("float");
+        }, this);
+
+        this.physics.add.overlap(bullets, enemies, enemyHit, null, this);
         this.physics.add.collider(enemies, enemies);
+
+        this.physics.add.overlap(player, enemies, playerHit, null, this);
+
     }
 
     update(delta)
